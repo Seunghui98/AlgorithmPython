@@ -1,3 +1,4 @@
+#BOJ 7569 토마토2
 from collections import deque
 
 dx = [1, -1, 0, 0, 0, 0]
