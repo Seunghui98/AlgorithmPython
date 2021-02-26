@@ -17,11 +17,13 @@ def solution(words, queries):
     revesed_array[len(word)].append(word[::-1]) # 단어를 뒤집어서 삽입
   
   # 이진 탐색을 수행하기 위해 각 단어 리스트 정렬 수행
+  # 정렬 O(NlogN)
   for i in range(10001):
     array[i].sort()
     reversed[i].sort()
   
   # 쿼리를 하나씩 확인하며 처리
+  # 탐색 O(N * logM)
   for q in queries:
     if q[0] != '?' # 접미사에 와일드 카드가 붙은 경우
       res = count_by_range(array[len(q)], q.replace('?', a), q.replace('?','z'))
