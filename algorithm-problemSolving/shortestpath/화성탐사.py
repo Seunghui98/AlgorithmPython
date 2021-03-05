@@ -16,7 +16,7 @@ for tc in range(int(input())):
   # 최단 거리 테이블을 모두 무한으로 초기화
   distance = [[INF] * n for _ in range(n)]
   
-  x, y = 0 # 시작의 위치 (0, 0)
+  x, y = 0, 0 # 시작의 위치 (0, 0)
   # 시작 노드로 가기 위한 비용은 (0, 0) 위치의 값으로 설정하여, 큐에 삽입
   q = [(graph[x][y], x, y)]
   distance[x][y] = graph[x][y]
