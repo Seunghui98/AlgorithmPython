@@ -1,4 +1,4 @@
-# BOJ 특정한 최단 경로
+# BOJ 특정한 최단 경로 1504번
 import sys
 import heapq
 
