@@ -12,32 +12,46 @@ def union_parent(parent, a, b):
   else:
     parent[a] = b
 
-edges = []
-
 n = int(input())
-node = [[]]
 parent = [0] * (n+1)
-for _ in range(n):
-  x, y, z = map(int, input().split())
-  node.append([x, y, z])
 
-for i in range(1, n+1):
-  for j in range(i+1, n+1):
-    cost = min(abs(node[i][0]-node[j][0]), abs(node[i][1]-node[j][1]), abs(node[i][2]-node[j][2]))
-    edges.append((cost, i, j))
-
+edges = []
+result = 0
 
 for i in range(1, n+1):
   parent[i] = i
 
-result = 0
+x = []
+y = []
+z = []
+
+for i in range(1, n+1):
+  data = list(map(int, input().split()))
+  x.append((data[0], i))
+  y.append((data[1], i))
+  z.append((data[2], i))
+
+x.sort()
+y.sort()
+z.sort()
+
+# 인접한 노드로부터 간선 정보를 추출하여 처리
+for i in range(n-1):
+  # 비용순으로 정렬하기 위해서 첫 번째 원소를 비용으로 설정
+  edges.append((x[i+1][0] - x[i][0], x[i][1], x[i+1][1]))
+  edges.append((y[i + 1][0] - y[i][0], y[i][1], y[i+1][1]))
+  edges.append((z[i + 1][0] - z[i][0], z[i][1], z[i+1][1]))
+
+# 간선을 비용순으로 정렬
 edges.sort()
 
+# 간선을 하나씩 확인하며
 for edge in edges:
-  cc, a, b = edge
-
+  cost, a, b = edge
   if find_parent(parent, a) != find_parent(parent, b):
     union_parent(parent, a, b)
-    result += cc
+    result += cost
 
 print(result)
+
+
