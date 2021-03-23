@@ -1,4 +1,5 @@
 # 풀이 참조 (https://dailyheumsi.tistory.com/64)
+# BOJ 12100
 import sys
 from collections import deque
 from copy import deepcopy
