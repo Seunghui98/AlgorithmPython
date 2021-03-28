@@ -15,7 +15,6 @@ def dfs(row):
     result = 0
     for col in range(N):
         if ck(row, col):
-            print(row, col)
             D[row][col] = 1
             ck_col[col] = 1
             ck_dig[row+col] = 1
