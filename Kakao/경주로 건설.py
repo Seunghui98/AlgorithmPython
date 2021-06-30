@@ -1,4 +1,5 @@
 # 카카오 2020 인턴 경주로 건설 - 프로그래머스
+# BFS + 최소비용
 from collections import deque
 
 def solution(board):
