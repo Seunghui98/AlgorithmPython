@@ -1,8 +1,6 @@
 import sys
 
 input = sys.stdin.readline
-
-
 u_list = [['w', 'w', 'w'] for i in range(3)]
 d_list = [['y', 'y', 'y'] for i in range(3)]
 l_list = [['g', 'g', 'g'] for i in range(3)]
