@@ -38,9 +38,7 @@ def bfs(graph, ps):
                     continue
                 else:
                     if graph[nx][ny] == 'P':
-
                         if dis <= 2 and (visited[nx][ny] == False):
-
                             return False
 
                     if visited[nx][ny] == False:
