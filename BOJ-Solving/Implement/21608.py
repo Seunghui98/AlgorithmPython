@@ -33,7 +33,6 @@ for _ in range(p):
                     sum_like += 1
                 if classroom[nx][ny] == 0:
                     sum_empty += 1
-            max_like = max(max_like, sum_like)
             temp.append((sum_like, sum_empty, (i, j)))
     temp.sort(key=lambda x:(-x[0], -x[1], x[2]))
 
