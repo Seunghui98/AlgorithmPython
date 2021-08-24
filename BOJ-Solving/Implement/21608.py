@@ -15,9 +15,6 @@ for _ in range(p):
     array = list(map(int, input().split()))
     like = array[1:]
     like_room[array[0]] = like
-    room_like = [[0] * n for _ in range(n)]
-    room_empty = [[0] * n for _ in range(n)]
-    max_like = 0
     if p == 0:
         classroom[1][1] = array[0]
         continue
