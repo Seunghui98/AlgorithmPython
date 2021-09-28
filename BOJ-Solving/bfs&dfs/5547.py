@@ -1,5 +1,6 @@
 # 일루미네이션 - BOJ 5547
 # BFS
+# 참조(https://velog.io/@paulus0617/boj5547)
 
 import sys
 from collections import deque
