@@ -1,3 +1,5 @@
+# 치즈 - BOJ 2636
+# BFS
 import sys
 from collections import deque
 
