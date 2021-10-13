@@ -1,7 +1,10 @@
-def fibonacci(num):
-    if num<=1:
-        return num
-    return fibonacci(num-1)+fibonacci(num-2)
+n = int(input())
 
-n=int(input())
-print(fibonacci(n))
+dp = [0]*21
+
+dp[1] = 1
+for i in range(2, n+1):
+    dp[i] = dp[i-2] + dp[i-1]
+
+
+print(dp[n])
