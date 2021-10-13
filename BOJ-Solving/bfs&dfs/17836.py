@@ -1,3 +1,5 @@
+# 공주님을 구해라 ! - BOJ 17836
+# BFS
 from collections import deque
 
 n, m, t = map(int, input().split())
