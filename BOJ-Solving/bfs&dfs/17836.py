@@ -1,46 +1,43 @@
-import sys
 from collections import deque
 
-input = sys.stdin.readline
-
-
 n, m, t = map(int, input().split())
-visited = [[10001] * m for _ in range(n)]
-
+visited = [[0 for _ in range(m)] for _ in range(n)]
 graph = [list(map(int, input().split())) for _ in range(n)]
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
+gonju = 10001
+
 def bfs(a, b):
+    global gonju
     q = deque()
     q.append((a, b, 0))
-    visited[a][b] = 0
+    visited[a][b] = 1
 
     while q:
-        x, y, w = q.popleft()
+        x, y, time = q.popleft()
+        if x == n-1 and y == m-1:
+            gonju = min(gonju, time)
+            break
+        if time+1 > t:
+            break
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
-            if 0 <= nx < n and 0 <= ny < m:
-                if w == 1:
-                    if visited[nx][ny] >  visited[x][y] + 1:
-                        visited[nx][ny] = visited[x][y] + 1
-                        q.append((nx, ny, w))
+            if 0 <= nx < n and 0 <= ny < m and visited[nx][ny]==0:
+                if graph[nx][ny] == 1:
+                    continue
+                elif graph[nx][ny] == 0:
+                    visited[nx][ny] = 1
+                    q.append((nx, ny, time+1))
                 else:
-                    if graph[nx][ny] == 1:
-                        continue
-                    elif graph[nx][ny] == 2:
-                        if visited[nx][ny] > visited[x][y] + 1:
-                            visited[nx][ny] = visited[x][y] + 1
-                            q.append((nx, ny, 1))
-                    else:
-                        if visited[nx][ny] > visited[x][y] + 1:
-                            visited[nx][ny] = visited[x][y] + 1
-                            q.append((nx, ny, w))
-
+                    visited[nx][ny] = 1
+                    diff = time + 1 + abs(nx-(n-1)) + abs(ny-(m-1))
+                    if diff <= t:
+                        gonju = diff
 
 bfs(0, 0)
 
-if visited[n-1][m-1] > t:
+if gonju > t:
     print('Fail')
 else:
-    print(visited[n-1][m-1])
+    print(gonju)
