@@ -1,10 +1,10 @@
-import sys
+n = int(input())
 
-N = int(sys.stdin.readline())
-arr = [0 for _ in range(N+1)]
-arr[1] = 1
+dp = [0]*91
 
-for i in range(2, N+1):
-    arr[i] = arr[i-1] + arr[i-2]
+dp[1] = 1
+for i in range(2, n+1):
+    dp[i] = dp[i-2] + dp[i-1]
 
-print(arr[-1])
+
+print(dp[n])
