@@ -1,5 +1,5 @@
 # 드래곤 커브 - BOJ 15685
-# 구현
+# Stack + 구현
 import copy
 n = int(input())
 visited = [[False] * (101) for _ in range(101)]
