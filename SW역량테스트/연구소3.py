@@ -68,8 +68,7 @@ def bfs(g, combi):
 
     if check(g):
         min_time = min(min_time, end_time)
-    else:
-        return False
+
 
 g = copy.deepcopy(graph)
 for combi in combination(virus, m):
