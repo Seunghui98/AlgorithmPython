@@ -1,45 +1,59 @@
-score_max = 0
-
 dice = list(map(int, input().split()))
 
-horse = [0, 0, 0, 0, 0]
+horse = [0, 0, 0, 0]
 
-board = []
+connet = [0 for _ in range(33)]
 # 외곽(1 ~ 20)
-for i in range(1, 21):
-    board.append(2*i)
-# 도착 (21)
-board.append(-1)
-# 10번 후 (22 ~24)
-for i in range(1, 4):
-    board.append(10+i*3)
-# 20번 후 (25 ~ 26)
-for i in range(1, 3):
-    board.append(20+i*2)
-# 30번 후 (27 ~ 29)
-for i in range(1, 3):
-    board.append(29-i)
-# 25번 부터 (30 ~ 32)
-for i in range(3):
-    board.append(25+5*i)
+for i in range(21):
+    connet[i] = i+1
+# 도착
+connet[21] = 21
+# 10번 다음 (22 ~ 24)
+connet[22], connet[23], connet[24] = 23, 24, 30
+# 20번 다음 (25 ~ 26)
+connet[25], connet[26] = 26, 30
+# 30번 다음 (27 ~ 29)
+connet[27], connet[28], connet[29] = 28, 29, 30
+# 가운데(25) ~ 40전
+connet[30], connet[31], connet[32] = 31, 32, 20
 
+# 점수
+board = [0 for _ in range(33)]
+for i in range(1, 21):
+    board[i] = i * 2
+board[21] = 0
+board[22], board[23], board[24] = 13, 16, 19
+board[25], board[26] = 22, 24
+board[27], board[28], board[29] = 28, 27, 26
+board[30], board[31], board[32] = 25, 30, 35
+dul = [0 for _ in range(33)]
 def dfs(depth, score):
     global score_max
     if depth == 10:
         score_max = max(score_max, score)
         return
 
-    for i in range(5):
-        if horse.count(horse[i]) > 1:
-            continue
-        if horse[i] == 10:
-            horse[i] = 21
-        elif horse[i] == 20:
-            horse[i] = 
-        elif horse[i] == 30:
-        arr = horse[i] + dice[depth]
-        if arr == 10:
-            
-        elif arr == 20:
-        elif arr == 30:
+    for i in range(4):
+        # 말 현재 위치에서 주사위 만큼 이동
+        x, now_x, num = horse[i], horse[i], dice[depth]
+        if x in [5, 10, 15]:
+            if x == 5:
+                x = 22
+            elif x == 10:
+                x = 25
+            else:
+                x = 27
+            num -= 1
+        if x + num <= 21:
+            x += num
         else:
+            for _ in range(num):
+                x = connet[x]
+        if dul[x] and x != 21:
+            continue
+        dul[now_x], dul[x], horse[i] = 0, 1, x
+        dfs(depth+1, score+board[x])
+        dul[now_x], dul[x], horse[i] = 1, 0, now_x
+score_max = 0
+dfs(0, 0)
+print(score_max)
