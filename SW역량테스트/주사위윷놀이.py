@@ -1,3 +1,5 @@
+# 주사위 윷놀이 - BOJ 17825
+# BFS + 구현
 dice = list(map(int, input().split()))
 
 horse = [0, 0, 0, 0]
