@@ -1,5 +1,4 @@
 # 낚시왕 - BOJ 17143
-# 
 r, c, m = map(int, input().split())                                                   
 # 북 - 남 - 동 - 서                                                                       
 dx = [-1, 1, 0, 0]                                                                    
