@@ -1,3 +1,5 @@
+# BOJ - 대기업 승범이네(17891번)
+# Tree DP
 import sys
 sys.setrecursionlimit(400000)
 
@@ -6,7 +8,7 @@ input = sys.stdin.readline
 n = int(input())
 
 graph = [[] for i in range(n+1)]
-
+select = [0 for i in range(n+1)]
 lst = list(map(int, input().split()))
 
 for i in range(len(lst)):
@@ -15,30 +17,46 @@ for i in range(len(lst)):
 
 power = [0] + list(map(int, input().split()))
 visited = [False for _ in range(n+1)]
-dp = [[0, 0] for _ in range(n+1)]
+dp = [[-1, -1] for _ in range(n+1)]
 
-def dfs(x):
-    visited[x] = True
-    # 만약 현재 부사수라면
-    if x != 1:
-        dp[x][0] += power[x]*power[x]
-        dp[x][1] += power[x]*power[x]
-    print(x)
-    max_val1 = 0
-    max_val2 = 0
-    for i in graph[x]:
-        if not visited[i]:
-            dfs(i)
-            if x != 1:
-                max_val1 = max(max_val1, dp[i][1])
-                max_val2 = max(max_val2, dp[i][0])
+def dfs(x, stat):
+    max_sum = dp[x][stat]
+    if max_sum != -1:
+        return max_sum
+    max_sum = 0
 
-    dp[x][0] += max_val1
-    dp[x][1] += max_val2
+    # 현재 노드가 멘티 or 아무 것도 x
+    if stat == 0:
+        sum = 0
+        for i in graph[x]:
+            sum += max(dfs(i, 0), dfs(i, 1))
+        max_sum = max(max_sum, sum)
+    else: # 현재 멘토인 경우
+        sum = 0
+        for i in graph[x]:
+            temp1 = dfs(i, 0)
+            temp2 = dfs(i, 1)
+            if(temp1 > temp2):
+                sum += temp1
+                select[i] = 0
+            else:
+                sum += temp2
+                select[i] = 1
+        for i in graph[x]:
+            sum2 = sum - dfs(i, select[i])
+            sum2 += (dfs(i, 0) + power[i] * power[x])
+            max_sum = max(max_sum, sum2)
+    dp[x][stat] = max_sum
+    return max_sum
 
 
 
-dfs(1)
-print(dp)
-print(max(dp[1][0], dp[1][1]))
+ans = max(dfs(1, 0), dfs(1, 1))
+
+
+print(ans)
+
+
+
+
 
